@@ -13,7 +13,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - Reset"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -36,6 +37,10 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      detonate
+      main_menu
+    when 6
       puts "Good-bye"
       exit(0)
     else
@@ -109,6 +114,18 @@ class MenuController
       puts "#{file_name} is not a valid CSV, please enter the name of a valid CSV file"
       read_csv
     end
+  end
+
+  #5
+  def detonate
+    ori_size = @address_book.entries.size
+    last_index = ori_size - 1
+
+    while last_index >= 0
+      @address_book.entries.delete_at(last_index)
+      last_index -= 1
+    end
+    puts "All #{ori_size} entries have been deleted"
   end
 
   def entry_submenu(entry)
